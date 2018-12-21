@@ -1,12 +1,13 @@
 th1 = 3;
 th2 = 1;
+sizeQ = 20;
 
-Q = zeros(1000, 20);
+Q = zeros(1000, sizeQ);
 GMLE = zeros(1000, 1);
 GMME = zeros(1000, 1);
 
 for i = 1:1000
-  [Q(i, :), GMLE(i), GMME(i)] = generate;
+	[Q(i, :), GMLE(i), GMME(i)] = generate(sizeQ, h1, th2);
 end
 
 G = 1/(2*th1 - 1);
@@ -18,11 +19,8 @@ varGMLE = var(GMLE);
 varGMME = var(GMME);
 mse = immse(GMME, GMLE);
 
-function [Q, GMLE, GMME] = generate
-  t = rand(1, 20);
-
-  th1 = 3;
-  th2 = 1;
+function [Q, GMLE, GMME] = generate(sizeQ, th1, th2)
+  t = rand(1, sizeQ);
 
   Q = th2./((1-t).^(1/th1));
 
