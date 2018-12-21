@@ -1,3 +1,7 @@
+% Partie 1
+
+% Exercise E
+
 % Parameters
 
 th1 = 3;
@@ -11,12 +15,33 @@ GMLE = zeros(1000, 1);
 GMME = zeros(1000, 1);
 
 for i = 1:1000
-	[Q(i, :), GMLE(i), GMME(i)] = generate(sizeQ, h1, th2);
+	[Q(i, :), GMLE(i), GMME(i)] = generate(sizeQ, th1, th2);
 end
 
 % Computation of G
 
 G = 1/(2*th1 - 1);
+
+% Exercise F
+
+% Plotting of histograms and boxplots
+figure
+	subplot(2, 2, 1)
+		histogram(GMLE)
+		title({'Histogram of the MLE', 'of G for n = 20'});
+		ylabel('Number of occurences');
+	subplot(2, 2, 2)
+		histogram(GMME)
+		title({'Histogram of the MME', 'of G for n = 20'});
+		ylabel('Number of occurences');
+	subplot(2, 2, 3)
+		boxplot(GMLE)
+		title({'Boxplot of the MLE', 'of G for n = 20'});
+	subplot(2, 2, 4)
+		boxplot(GMME)
+		title({'Boxplot of the MME', 'of G for n = 20'});
+
+% Exercise g
 
 % Computation of biases
 
