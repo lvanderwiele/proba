@@ -10,13 +10,7 @@ sizeQ = 20;
 
 % Creation of Q, GMLE and GMME
 
-Q = zeros(1000, sizeQ);
-GMLE = zeros(1000, 1);
-GMME = zeros(1000, 1);
-
-for i = 1:1000
-	[Q(i, :), GMLE(i), GMME(i)] = generate(sizeQ, th1, th2);
-end
+[Q, GMLE, GMME] = generate(sizeQ, th1, th2);
 
 % Computation of G
 
@@ -57,10 +51,76 @@ varGMME = var(GMME);
 
 mse = immse(GMME, GMLE);
 
+% Exercise h
+
+% Calculating estimators with various sample sizes
+
+n = [20, 40, 60, 80, 100, 150, 200, 300, 400, 500];
+GMLE = [GMLE, zeros(1000, numel(n)-1)];
+GMME = [GMME, zeros(1000, numel(n)-1)];
+
+for i = 2:numel(n)
+  [~, GMLE(:, i), GMME(:, i)] = generate(n(i), th1, th2);
+end
+
+% Calcultating biases
+
+GMLEbias = mean(GMLE) - G;
+GMMEbias = mean(GMME) - G;
+
+% Caculating variances
+
+GMLEvar = var(GMLE);
+GMMEvar = var(GMME);
+
+% Calculating MSE
+
+mse = zeros(1, 10);
+
+for i = 1:numel(n)
+  mse(i) = immse(GMLE(:, i), GMME(:, i));
+end
+
+figure;
+  subplot(1, 2, 1)
+    stem(n, GMLEbias)
+    title({'Bias of the MLE of G', 'for various sample sizes'})
+    xlabel('Sample size n'); ylabel('Bias of the estimator')
+  subplot(1, 2, 2)
+    stem(n, GMMEbias)
+    title({'Bias of the MME of G', 'for various sample sizes'})
+    xlabel('Sample size n'); ylabel('Bias of the esitmator');
+
+figure;
+  subplot(1, 2, 1)
+    stem(n, GMLEvar)
+    title({'Variance of the MLE of G', 'for various sample sizes'})
+    xlabel('Sample size n'); ylabel('Variance of the estimator');
+  subplot(1, 2, 2)
+    stem(n, GMMEvar)
+    title({'Variance of the MME of G', 'for various sample sizes'})
+    xlabel('Sample size n'); ylabel('Variance of the estimator');
+
+figure;
+  stem(n, mse)
+  title({'Mean Square Error of the MME and MLE of G', 'for various sample sizes'})
+  xlabel('Sample size n'); ylabel('Mean Square Error');
+
+function [Q, GMLE, GMME] = generate(sizeQ, th1, th2)
+  Q = zeros(1000, sizeQ);
+  GMLE = zeros(1000, 1);
+  GMME = zeros(1000, 1);
+
+  for i = 1:1000
+    [Q(i, :), GMLE(i), GMME(i)] = generateSample(sizeQ, th1, th2);
+  end
+end
+
 
 % Function generating Q, GMLE and GMME
 % 	sizeq decide Q's sample size 
-function [Q, GMLE, GMME] = generate(sizeQ, th1, th2)
+
+function [Q, GMLE, GMME] = generateSample(sizeQ, th1, th2)
   t = rand(1, sizeQ);
 
   Q = th2./((1-t).^(1/th1));
