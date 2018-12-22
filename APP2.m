@@ -1,4 +1,6 @@
-% Partie 1
+set(0, 'defaultTextInterpreter', 'latex')
+
+% Part 1
 
 % Exercise E
 
@@ -105,6 +107,26 @@ figure;
   stem(n, mse)
   title({'Mean Square Error of the MME and MLE of G', 'for various sample sizes'})
   xlabel('Sample size n'); ylabel('Mean Square Error');
+
+% Exercise i
+
+comp = [sqrt(n(1))*(GMLE(:, 1)-G) sqrt(n(5))*(GMLE(:, 5)-G) sqrt(n(10))*(GMLE(:, 10)-G)];
+
+figure;
+	subplot(1, 3, 1);	
+		histogram(comp(:, 1));
+		ylabel('Occurences for n = 20')
+	subplot(1, 3, 2);
+		histogram(comp(:, 2));
+		ylabel('Occurences for n = 100')
+	subplot(1, 3, 3);
+		histogram(comp(:, 3));
+		ylabel('Occurences for n = 500')
+	a = axes;
+	t1 = title('Histogram of $\sqrt{n}(\hat{G}_{MLE} - G_{\theta_1^0, \theta_2^0})$ for various sample sizes');
+	a.Visible = 'off'
+	t1.Visible = 'on'
+
 
 function [Q, GMLE, GMME] = generate(sizeQ, th1, th2)
   Q = zeros(1000, sizeQ);
