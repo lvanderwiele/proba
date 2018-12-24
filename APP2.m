@@ -24,18 +24,18 @@ G = 1/(2*th1 - 1);
 figure
 	subplot(2, 2, 1)
 		histogram(GMLE)
-		title({'Histogram of the MLE', 'of G for n = 20'});
+		title('\begin{tabular}{c}Histogram of the MLE\\ of G for n = 20\end{tabular}');
 		ylabel('Number of occurences');
 	subplot(2, 2, 2)
 		histogram(GMME)
-		title({'Histogram of the MME', 'of G for n = 20'});
+		title('\begin{tabular}{c}Histogram of the MME\\ of G for n = 20\end{tabular}');
 		ylabel('Number of occurences');
 	subplot(2, 2, 3)
 		boxplot(GMLE)
-		title({'Boxplot of the MLE', 'of G for n = 20'});
+		title('\begin{tabular}{c}Boxplot of the MLE\\ of G for n = 20\end{tabular}');
 	subplot(2, 2, 4)
 		boxplot(GMME)
-		title({'Boxplot of the MME', 'of G for n = 20'});
+		title('\begin{tabular}{c}Boxplot of the MME\\ of G for n = 20\end{tabular}');
 
 % Exercise g
 
@@ -86,26 +86,26 @@ end
 figure;
   subplot(1, 2, 1)
     stem(n, GMLEbias)
-    title({'Bias of the MLE of G', 'for various sample sizes'})
+		title('\begin{tabular}{c}Bias of the MLE of G\\ for various sample sizes\end{tabular}')
     xlabel('Sample size n'); ylabel('Bias of the estimator')
   subplot(1, 2, 2)
     stem(n, GMMEbias)
-    title({'Bias of the MME of G', 'for various sample sizes'})
+		title('\begin{tabular}{c}Bias of the MME of G\\ for various sample sizes\end{tabular}')
     xlabel('Sample size n'); ylabel('Bias of the esitmator');
 
 figure;
   subplot(1, 2, 1)
     stem(n, GMLEvar)
-    title({'Variance of the MLE of G', 'for various sample sizes'})
+		title('\begin{tabular}{c}Variance of the MLE of G\\ for various sample sizes\end{tabular}')
     xlabel('Sample size n'); ylabel('Variance of the estimator');
   subplot(1, 2, 2)
     stem(n, GMMEvar)
-    title({'Variance of the MME of G', 'for various sample sizes'})
+		title('\begin{tabular}{c}Variance of the MME of G\\ for various sample sizes\end{tabular}')
     xlabel('Sample size n'); ylabel('Variance of the estimator');
 
 figure;
   stem(n, mse)
-  title({'Mean Square Error of the MME and MLE of G', 'for various sample sizes'})
+	title('\begin{tabular}{c}Mean Square Error of the MME and MLE of G\\ for various sample sizes \end{tabular}')
   xlabel('Sample size n'); ylabel('Mean Square Error');
 
 % Exercise i
