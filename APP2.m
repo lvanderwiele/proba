@@ -51,7 +51,8 @@ varGMME = var(GMME);
 
 % Computation of MSE
 
-mse = immse(GMME, GMLE);
+mseGMLE = varGMLE + GMLEbias.^2;
+mseGMME = varGMME + GMMEbias.^2;
 
 % Exercise h
 
@@ -77,11 +78,8 @@ GMMEvar = var(GMME);
 
 % Calculating MSE
 
-mse = zeros(1, 10);
-
-for i = 1:numel(n)
-  mse(i) = immse(GMLE(:, i), GMME(:, i));
-end
+mseGMLE = GMLEvar + GMLEbias.^2;
+mseGMME = GMMEvar + GMMEbias.^2;
 
 figure;
   subplot(1, 2, 1)
@@ -104,9 +102,15 @@ figure;
     xlabel('Sample size n'); ylabel('Variance of the estimator');
 
 figure;
-  stem(n, mse)
-	title('\begin{tabular}{c}Mean Square Error of the MME and MLE of G\\ for various sample sizes \end{tabular}')
-  xlabel('Sample size n'); ylabel('Mean Square Error');
+	subplot(1, 2, 1)
+		stem(n, mseGMLE)
+		title('\begin{tabular}{c}MSE of the MLE of G for\\ various sample sizes \end{tabular}')
+		xlabel('Sample size n'); ylabel('Mean Square Error');
+	subplot(1, 2, 2)
+		stem(n, mseGMME)
+		title('\begin{tabular}{c}MSE of the MME of G for\\ various sample sizes \end{tabular}')
+		xlabel('Sample size n'); ylabel('Mean Square Error');
+
 
 % Exercise i
 
@@ -124,8 +128,8 @@ figure;
 		ylabel('Occurences for n = 500')
 	a = axes;
 	t1 = title('Histogram of $\sqrt{n}(\hat{G}_{MLE} - G_{\theta_1^0, \theta_2^0})$ for various sample sizes');
-	a.Visible = 'off'
-	t1.Visible = 'on'
+	a.Visible = 'off';
+	t1.Visible = 'on';
 
 
 function [Q, GMLE, GMME] = generate(sizeQ, th1, th2)
